@@ -22,11 +22,12 @@ const EventBar = ({ events, setEvents, currentEvent, setCurrentEvent }) => {
           ['Completed']: [],
         },
       ]);
+      console.log(events)
   }, [events, setEvents]);
 
   return (
     <div className='event-bar'>
-      <h1 className='event-bar-title'>.kanban</h1>
+      <h1 className='event-bar-title'>Kanban</h1>
       <AddEventButton handleClick={handleAdd} />
       <div className='event-container'>
         {events.map((item) => (

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Event",
+    "Todo": [],
+    "In proggress": [],
+    "Completed": []
+  },
+  {
+    "id": 2,
+    "title": "New Event",
+    "Todo": [],
+    "In proggress": [],
+    "Completed": []
+  }
+]

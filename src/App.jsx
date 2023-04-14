@@ -8,7 +8,7 @@ import TaskBox from './components/TaskBox';
 function App() {
   const initEvent = useMemo(() => [
     {
-      title: 'Add a new Event',
+      title: 'Event',
       ['To do']: [],
       ['In progress']: [],
       ['Completed']: [],
