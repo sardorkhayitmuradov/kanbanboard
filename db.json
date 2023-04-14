@@ -12,5 +12,19 @@
     "Todo": [],
     "In proggress": [],
     "Completed": []
+  },
+  {
+    "id": 2,
+    "title": "New Event 2",
+    "Todo": [],
+    "In proggress": [],
+    "Completed": []
+  },
+  {
+    "id": 2,
+    "title": "New Event 3",
+    "Todo": [],
+    "In proggress": [],
+    "Completed": []
   }
 ]
