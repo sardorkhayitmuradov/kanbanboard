@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTaskButton from './AddTaskButton';
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,9 +12,9 @@ import {
 const Column = ({ tag, currentEvent }) => {
   const [isLoading, setIsLoading] = useState(false);
   // console.log(currentEvent);
-  
+
   const dispatch = useDispatch();
-  
+
   const category =
     tag == 'To do' ? 'todo' : tag == 'In progress' ? 'inProgress' : 'completed';
 
@@ -30,27 +30,25 @@ const Column = ({ tag, currentEvent }) => {
     setIsLoading(true);
   };
 
-  const handleRemove = (e,id, category, eventId) => {
+  const handleRemove = (e, id, category, eventId) => {
     e.stopPropagation();
     dispatch(deleteTaskRequest(id, category, currentEvent.id));
     console.log(id, category);
   };
 
   const handleUpdate = (id) => {
-    const name = prompt('Update task name:');
+    const title = prompt('Update task name:');
     const description = prompt('Update description:');
-    if (!(name && description)) return;
-    const updatedTask = { id, name, description };
-    dispatch(updateTaskRequest(updatedTask, tag, currentEvent.id));
-    dispatch(fetchEventsRequest());
+    if (!(title && description)) return;
+    const updatedTask = { id, title, description };
+    dispatch(updateTaskRequest(updatedTask, category, currentEvent.id));
   };
-
 
   useEffect(() => {
     if (!isLoading) {
       dispatch(fetchEventsRequest());
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }, [dispatch, isLoading]);
 
   return (

@@ -88,18 +88,20 @@ function* deleteTask(action) {
 
 function* updateTask(action) {
   try {
-    const response = yield call(
-      axios.put,
-      `${apiUrl}/${action.payload.task.id}`,
-      action.payload
-    );
+    const { task, category, eventId } = action.payload;
+    const eventResponse = yield call(axios.get, `${apiUrl}/${eventId}`);
+    const event = eventResponse.data;
+
+    const updatedEvent = {
+      ...event,
+      [category]: event[category].map((t) => (t.id === task.id ? task : t)),
+    };
+
+    yield call(axios.put, `${apiUrl}/${eventId}`, updatedEvent);
+
     yield put({
       type: actionTypes.UPDATE_TASK_SUCCESS,
-      payload: {
-        ...response.data,
-        eventId: action.payload.eventId,
-        category: action.payload.category,
-      },
+      payload: { task, category, eventId },
     });
   } catch (error) {
     yield put({

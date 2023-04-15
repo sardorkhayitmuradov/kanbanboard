@@ -43,10 +43,10 @@ export const deleteTaskRequest = (taskId, category, eventId) => ({
     payload: { taskId, category, eventId },
   });
 
-export const updateTaskRequest = (task) => ({
+  export const updateTaskRequest = (task, category, eventId) => ({
     type: actionTypes.UPDATE_TASK_REQUEST,
-    payload: task
-});
+    payload: { task, category, eventId },
+  });
 
 export const fetchEventsRequest = () => ({
     type: actionTypes.FETCH_EVENTS_REQUEST,
