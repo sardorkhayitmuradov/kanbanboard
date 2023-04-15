@@ -9,19 +9,55 @@ export const actionTypes = {
 
     DELETE_TASK_REQUEST: 'DELETE_TASK_REQUEST',
     DELETE_TASK_SUCCESS: 'DELETE_TASK_SUCCESS',
-    DELETE_TASK_FAILURE: 'DELETE_TASK_FAILURE'
+    DELETE_TASK_FAILURE: 'DELETE_TASK_FAILURE',
+
+    UPDATE_TASK_REQUEST: "UPDATE_TASK_REQUEST",
+    UPDATE_TASK_SUCCESS: "UPDATE_TASK_SUCCESS",
+    UPDATE_TASK_FAILURE: "UPDATE_TASK_FAILURE",
+
+
+    FETCH_EVENTS_REQUEST: 'FETCH_EVENTS_REQUEST',
+    FETCH_EVENTS_SUCCESS: 'FETCH_EVENTS_SUCCESS',
+    FETCH_EVENTS_FAILURE: 'FETCH_EVENTS_FAILURE',
+
+    CREATE_EVENT_REQUEST: 'CREATE_EVENT_REQUEST',
+    CREATE_EVENT_SUCCESS: 'CREATE_EVENT_SUCCESS',
+    CREATE_EVENT_FAILURE: 'CREATE_EVENT_FAILURE',
+
+    DELETE_EVENT_REQUEST: 'DELETE_EVENT_REQUEST',
+    DELETE_EVENT_SUCCESS: 'DELETE_EVENT_SUCCESS',
+    DELETE_EVENT_FAILURE: 'DELETE_EVENT_FAILURE',
 };
 
 export const fetchTasksRequest = () => ({
     type: actionTypes.FETCH_TASKS_REQUEST
 });
 
-export const createTaskRequest = (task) => ({
+export const createTaskRequest = ({ task, category, eventId }) => ({
     type: actionTypes.CREATE_TASK_REQUEST,
-    payload: task
+    payload: { task, category, eventId },
 });
 
 export const deleteTaskRequest = (id) => ({
     type: actionTypes.DELETE_TASK_REQUEST,
     payload: id
+});
+
+export const updateTaskRequest = (task) => ({
+    type: actionTypes.UPDATE_TASK_REQUEST,
+    payload: task
+});
+
+export const fetchEventsRequest = () => ({
+    type: actionTypes.FETCH_EVENTS_REQUEST,
+});
+
+export const createEventRequest = (event) => ({
+    type: actionTypes.CREATE_EVENT_REQUEST,
+    payload: event,
+});
+
+export const deleteEventRequest = (id) => ({
+    type: actionTypes.DELETE_EVENT_REQUEST,
+    payload: id,
 });

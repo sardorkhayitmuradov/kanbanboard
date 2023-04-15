@@ -1,29 +1,57 @@
-import React, {useCallback} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import AddEventButton from './AddEventButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEventsRequest, createEventRequest } from '../redux/actions/taskActions';
 
-const EventBar = ({ events, setEvents, currentEvent, setCurrentEvent }) => {
+const EventBar = ({ currentEvent, setCurrentEvent, events }) => {
+
+  const dispatch = useDispatch();
+  // const events = useSelector((state) => state.events.events);
+
+  useEffect(() => {
+    dispatch(fetchEventsRequest());
+  }, [dispatch]);
+
   const handleAdd = useCallback(() => {
-    const title = prompt('Enter the Title:');
-    // Prevent Duplicated
-    if (
-      events.find((event) => event.title.toLowerCase() === title.toLowerCase())
-    ) {
+    // ...
+    const title = prompt('Enter the Title:').trim();
+    if (!title) {
+      return;
+    }
+
+    const foundEvent = events?.some((event) => event.title.toLowerCase() === title.toLowerCase());
+    if (foundEvent) {
       alert('Event Already Existed');
       return;
     }
-    // Add new event
-    if (title)
-      setEvents((prev) => [
-        ...prev,
-        {
-          title,
-          ['To do']: [],
-          ['In progress']: [],
-          ['Completed']: [],
-        },
-      ]);
-      console.log(events)
-  }, [events, setEvents]);
+
+    // console.log(events, title.toLowerCase());
+    dispatch(createEventRequest({ title, 'To do': [], 'In progress': [], 'Completed': [] }));
+  }, [dispatch, events]);
+
+
+  // const handleAdd = useCallback(() => {
+  //   const title = prompt('Enter the Title:');
+  //   // Prevent Duplicated
+  //   if (
+  //     events?.find((event) => event.title.toLowerCase() === title.toLowerCase())
+  //   ) {
+  //     alert('Event Already Existed');
+  //     return;
+  //   }
+  //   // Add new event
+  //   if (title)
+  //     setEvents((prev) => [
+  //       ...prev,
+  //       {
+  //         title,
+  //         ['To do']: [],
+  //         ['In progress']: [],
+  //         ['Completed']: [],
+  //       },
+  //     ]);
+  //     console.log(events)
+  // }, [events, setEvents]);
 
   return (
     <div className='event-bar'>
