@@ -1,5 +1,0 @@
-{
-  "/events/:id/todo": "/events/:id/todo",
-  "/events/:id/inProgress": "/events/:id/inProgress",
-  "/events/:id/completed": "/events/:id/completed"
-}

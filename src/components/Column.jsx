@@ -1,104 +1,84 @@
-import React from 'react';
+import React, { useEffect , useState } from 'react';
 import AddTaskButton from './AddTaskButton';
 import Task from './Task';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import uuid from 'react-uuid';
-import { useDispatch } from "react-redux";
-import { createTaskRequest, updateTaskRequest, deleteTaskRequest } from "../redux/actions/taskActions";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchEventsRequest,
+  createTaskRequest,
+  updateTaskRequest,
+  deleteTaskRequest,
+} from '../redux/actions/taskActions';
 
 const Column = ({ tag, currentEvent }) => {
-  console.log(tag)
-
+  const [isLoading, setIsLoading] = useState(false);
+  // console.log(currentEvent);
+  
   const dispatch = useDispatch();
+  
+  const category =
+    tag == 'To do' ? 'todo' : tag == 'In progress' ? 'inProgress' : 'completed';
 
   const handleAdd = () => {
-    const title = prompt("Enter task title:");
-    const description = prompt("Enter description:");
+    if (currentEvent == undefined) {
+      return alert('Iltimos Eventlardan tanlang yoki yangi event oching !');
+    }
+    const title = prompt('Enter task title:');
+    const description = prompt('Enter description:');
     if (!(title && description)) return;
     const task = { title, description };
-    const category = tag === 'To do' ? 'todo' : tag === 'In progress' ? 'inProgress' : 'completed';
     dispatch(createTaskRequest({ task, category, eventId: currentEvent.id }));
+    setIsLoading(true);
   };
 
-  // const handleAdd = useCallback(
-  //   (eventId, category) => {
-  //     const taskName = prompt("Enter the task name:");
-  //     if (!taskName) {
-  //       return;
-  //     }
-
-  //     const newTask = {
-  //       id: Date.now(), // Generate a unique ID for the task
-  //       name: taskName,
-  //       description: "", // You can prompt for a description if needed
-  //     };
-
-  //     dispatch(
-  //       createTaskRequest({
-  //         eventId,
-  //         category,
-  //         task: newTask,
-  //       })
-  //     );
-  //   },
-  //   [dispatch]
-  // );
-
-  const handleRemove = (id, e) => {
+  const handleRemove = (e,id, category, eventId) => {
     e.stopPropagation();
-    dispatch(deleteTaskRequest(id, tag, currentEvent.id));
+    dispatch(deleteTaskRequest(id, category, currentEvent.id));
+    console.log(id, category);
   };
 
   const handleUpdate = (id) => {
-    const name = prompt("Update task name:");
-    const description = prompt("Update description:");
+    const name = prompt('Update task name:');
+    const description = prompt('Update description:');
     if (!(name && description)) return;
     const updatedTask = { id, name, description };
     dispatch(updateTaskRequest(updatedTask, tag, currentEvent.id));
+    dispatch(fetchEventsRequest());
   };
+
+
+  useEffect(() => {
+    if (!isLoading) {
+      dispatch(fetchEventsRequest());
+    }
+    setIsLoading(false)
+  }, [dispatch, isLoading]);
 
   return (
     <div className='column'>
       {tag}
       <AddTaskButton handleClick={handleAdd} />
-      <Droppable droppableId={tag}>
-        {(provided, snapshot) => {
-          return (
-            <div
-              className='task-container'
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {currentEvent[tag]?.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.id}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <Task
-                      name={item.name}
-                      description={item.description}
-                      id={item.id}
-                      provided={provided}
-                      snapshot={snapshot}
-                      handleRemove={handleRemove}
-                      handleUpdate={handleUpdate}
-                    />
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          );
-        }}
-      </Droppable>
+
+      <div className='task-container'>
+        {currentEvent &&
+          currentEvent[category]?.map((item) => {
+            return (
+              <Task
+                title={item.title}
+                description={item.description}
+                category={category}
+                id={item.id}
+                key={item.id}
+                handleRemove={handleRemove}
+                handleUpdate={handleUpdate}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };
 
 export default Column;
-
 
 // const handleAdd = () => {
 //   const name = prompt('Enter task name:');
@@ -161,3 +141,27 @@ export default Column;
 //     })
 //   );
 // };
+
+// const handleAdd = useCallback(
+//   (eventId, category) => {
+//     const taskName = prompt("Enter the task name:");
+//     if (!taskName) {
+//       return;
+//     }
+
+//     const newTask = {
+//       id: Date.now(), // Generate a unique ID for the task
+//       name: taskName,
+//       description: "", // You can prompt for a description if needed
+//     };
+
+//     dispatch(
+//       createTaskRequest({
+//         eventId,
+//         category,
+//         task: newTask,
+//       })
+//     );
+//   },
+//   [dispatch]
+// );

@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import { actionTypes } from '../actions/taskActions';
 
-const apiUrl = 'http://localhost:5000/events';
+const apiUrl = 'http://localhost:3000/events';
 
 function* fetchEvents() {
     try {

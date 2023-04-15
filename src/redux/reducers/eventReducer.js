@@ -2,13 +2,13 @@ import { actionTypes } from '../actions/taskActions';
 
 const initialState = {
     events: [
-        {
-            id: 1,
-            title: "Event",
-            todo: [],
-            inProgress: [],
-            completed: [],
-        },
+        // {
+        //     id: 1,
+        //     title: "Event",
+        //     todo: [],
+        //     inProgress: [],
+        //     completed: [],
+        // },
     ],
     loading: false,
     error: null,

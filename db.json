@@ -5,44 +5,44 @@
       "title": "Event",
       "todo": [
         {
-          "id": 1,
-          "title": "Sleeping",
-          "description": "till morning i should have to sleep"
+          "id": 1681561906111,
+          "title": "5",
+          "description": "5"
         }
       ],
       "inProgress": [
         {
           "id": 1,
-          "title": "study math",
-          "description": "reread math geomtric function"
+          "title": "going dubai",
+          "description": "1 day of travel"
         }
       ],
-      "completed": []
+      "completed": [
+        {
+          "id": 1681560154889,
+          "title": "hello",
+          "description": "hello"
+        }
+      ]
     },
     {
       "id": 2,
       "title": "Event 2",
-      "todo": [],
-      "inProgress": [
+      "todo": [
         {
-          "id": 1,
-          "title": "going dubai",
-          "description": "1 day of travel"
-        },
-        {
-          "id": 12,
-          "title": "going dubai",
-          "description": "1 day of travel"
+          "id": 1681561921073,
+          "title": "no",
+          "description": "no"
         }
       ],
-      "completed": []
-    },
-    {
-      "id": 3,
-      "title": "Event 3",
-      "todo": [],
       "inProgress": [],
-      "completed": []
+      "completed": [
+        {
+          "id": 1681561979692,
+          "title": "h",
+          "description": "h"
+        }
+      ]
     }
   ]
 }

@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Column from './Column';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch } from "react-redux";
 import { deleteEventRequest } from "../redux/actions/taskActions";
 
-const TaskBox = ({ currentEvent, setCurrentEvent }) => {
-
+const TaskBox = ({ currentEvent }) => {
+  // console.log(currentEvent)
   const dispatch = useDispatch();
 
   const handleRemove = () => {
@@ -27,8 +27,6 @@ const TaskBox = ({ currentEvent, setCurrentEvent }) => {
               <Column
                 key={tag}
                 tag={tag}
-                // events={events}
-                // setEvents={setEvents}
                 currentEvent={currentEvent}
               />
             ))

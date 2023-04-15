@@ -131,6 +131,7 @@
   color: #888;
   line-height: 0.1em;
   transition: 0.5s;
+  padding: 5px;
 }
 
 .remove-bar:hover {

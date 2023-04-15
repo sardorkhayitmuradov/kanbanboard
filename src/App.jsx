@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EventBar from './components/EventBar';
 import TaskBox from './components/TaskBox';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEventsRequest } from './redux/actions/taskActions';
 import './App.css';
 import './components/event.css';
 import './components/task.css';
 
 function App() {
-
+  const dispatch = useDispatch()
   const events = useSelector((state) => state.events.events);
-  const [currentEvent, setCurrentEvent] = useState(events[0]);
+  const [currentEvent, setCurrentEvent] = useState(null);
 
-  // console.log(events)
+  useEffect(() => {
+    dispatch(fetchEventsRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (events.length > 0) {
+      setCurrentEvent(events[0]);
+    }
+  }, [events]);
 
   return (
     <div className='App'>
@@ -20,11 +29,13 @@ function App() {
         currentEvent={currentEvent}
         setCurrentEvent={setCurrentEvent}
       />
-      <TaskBox
-        events={events}
-        currentEvent={currentEvent}
-        setCurrentEvent={setCurrentEvent}
-      />
+      {currentEvent && (
+        <TaskBox
+          events={events}
+          currentEvent={currentEvent}
+          setCurrentEvent={setCurrentEvent}
+        />
+      )}
     </div>
   );
 }
